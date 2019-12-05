@@ -24,9 +24,22 @@ namespace CatMash.Controllers
 
         public IActionResult Index()
         {
-            IList<Cats> test = _catmashService.GetAll();
-            _logger.LogDebug(test.Count.ToString());
+            Cats firstCat = _catmashService.GetRandomCat();
+            Cats secondCat = _catmashService.GetRandomCat();
+            while (secondCat.Id == firstCat.Id)
+            {
+                secondCat = _catmashService.GetRandomCat();
+            }
+            ViewBag.firstCat = firstCat;
+            ViewBag.secondCat = secondCat;
             return View();
+        }
+        public RedirectToActionResult Vote(int id)
+        {
+            var cat = _catmashService.GetById(id);
+            cat.Note += 1;
+            _catmashService.Update(cat);
+            return RedirectToAction("Index", "Cats");
         }
 
         public IActionResult Privacy()

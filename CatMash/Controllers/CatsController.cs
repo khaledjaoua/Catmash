@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CatMash.Controllers
 {
@@ -19,9 +20,9 @@ namespace CatMash.Controllers
         // GET: Cats
         public ActionResult Index()
         {
-            IList<Cats> test = _catmashService.GetAll();
-            _logger.LogDebug(test.Count.ToString());
-            return View();
+            IList<Cats> cats = _catmashService.GetAll();
+            _logger.LogDebug(cats.Count.ToString());
+            return View(cats.OrderByDescending(x=>x.Note));
         }
 
         // GET: Cats/Details/5

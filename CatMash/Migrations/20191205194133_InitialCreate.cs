@@ -53,7 +53,7 @@ namespace CatMash.Migrations
                     CatMashId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     url = table.Column<string>(nullable: true),
-                    id = table.Column<int>(nullable: false),
+                    id = table.Column<string>(nullable: true),
                     note = table.Column<int>(nullable: false, defaultValueSql: "((0))")
                 },
                 constraints: table =>

@@ -1,8 +1,31 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model CatMash.Repository.Models.Cats
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table>
+        @{
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+     
+                            <img src="@Url.Content(ViewBag.firstCat.Url)" width="80%" height="80%" alt="ViewBag.firstCat.Id" />
+                        <hr>
+                        <div width="80%">
+                            @Html.ActionLink("Vote", "Vote", "Home", new { id = ViewBag.firstCat.CatMashId }, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                    <div class="col">
+                            <img src="@Url.Content(ViewBag.secondCat.Url)" width="80%" height="80%" alt="ViewBag.secondCat.Id" />
+                        <hr>
+                        <div width="80%">
+                            @Html.ActionLink("Vote", "Vote", "Home", new { id = ViewBag.secondCat.CatMashId }, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </table>
 </div>

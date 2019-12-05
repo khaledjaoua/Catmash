@@ -2,8 +2,10 @@
 using CatMash.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,8 +18,21 @@ namespace CatMash.Services
         public CatMashService(CatMashDbContext context)
         {
             _context = context;
-            //_logger = logger;
+            if (!context.Cats.Any()){
+                SeedCats();
+            }
         }
+
+        private void SeedCats()
+        {
+            using (StreamReader r = new StreamReader(@".\cats.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Cats> items = JsonConvert.DeserializeObject<List<Cats>>(json);
+                AddRange(items);
+            }
+        }
+
         public async Task<Cats> GetByIdAsync(int id)
         {
             return await _context.Set<Cats>()
