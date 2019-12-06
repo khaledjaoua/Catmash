@@ -17,7 +17,7 @@ namespace CatMash.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cats>().ToTable("cats");
-            modelBuilder.Entity<Cats>().HasKey(x => x.CatMashId).HasName("catmashid");
+            modelBuilder.Entity<Cats>().HasKey(x => x.CatMashId);
             modelBuilder.Entity<Cats>().Property(b => b.Note).HasColumnName("note").HasDefaultValueSql("((0))");
             modelBuilder.Entity<Cats>().Property(b => b.Id).HasColumnName("id");
             modelBuilder.Entity<Cats>().Property(b => b.Url).HasColumnName("url");

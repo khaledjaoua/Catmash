@@ -65,24 +65,31 @@ namespace CatMash.Test
         }
 
         [TestMethod]
-        public void CreateCatsTest()
+        public void CreateAndUpdateCatsTest()
         {
             var options = new DbContextOptionsBuilder<CatMashDbContext>()
                 .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
                 .Options;
             CatMashDbContext context = new CatMashDbContext(options);
-            //// Act - Add the book
+            //// Act - Add the Cats
             var service = new CatMashService(context);
-            service.Add(new Cats
+            var cat = new Cats
             {
                 CatMashId = 1,
                 Note = 5,
                 Url = "https://example.com",
                 Id = "bmp"
-            });
+            };
+            service.Add(cat);
             //// Assert
             Assert.AreEqual(1, context.Cats.Count());
             Assert.AreEqual("https://example.com", context.Cats.Single().Url);
+            /// 
+            cat.Note = 10;
+            service.Update(cat);
+            var updatedCat = service.GetById(cat.CatMashId);
+            // Asset
+            Assert.AreEqual(cat.Note, updatedCat.Note);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using CatMash.Repository;
 using CatMash.Repository.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,12 +17,9 @@ namespace CatMash.Services
         public CatMashService(CatMashDbContext context)
         {
             _context = context;
-            if (!context.Cats.Any()){
-                SeedCats();
-            }
         }
 
-        private void SeedCats()
+        public void SeedCats()
         {
             using (StreamReader r = new StreamReader(@".\cats.json"))
             {
@@ -92,5 +88,6 @@ namespace CatMash.Services
         public void Add(Cats obj);
         public Cats GetById(object id);
         public Cats GetRandomCat();
+        public void SeedCats();
     }
 }
