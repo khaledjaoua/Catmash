@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatMash.Repository", "CatMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatMash.Services", "CatMash.Services\CatMash.Services.csproj", "{02C01127-BE64-47C6-96F7-958E068BD07A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatMash.Tests", "CatMash.Tests\CatMash.Tests.csproj", "{2D16A86B-DE6E-434F-8E7C-7C4776D9679E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatMash.Tests", "CatMash.Tests\CatMash.Tests.csproj", "{2D16A86B-DE6E-434F-8E7C-7C4776D9679E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

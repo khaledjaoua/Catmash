@@ -11,5 +11,6 @@
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <WebStackScaffolding_DbContextTypeFullName>CatMash.Repository.CatMashDbContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>CatMash20191206090013 - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

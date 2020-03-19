@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CatMash.Controllers
 {
@@ -18,10 +19,10 @@ namespace CatMash.Controllers
             _logger = logger;
         }
         // GET: Cats
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IList<Cats> cats = _catmashService.GetAll();
-            _logger.LogDebug(cats.Count.ToString());
+            IEnumerable<Cats> cats = await  _catmashService.GetAllAsync();
+            _logger.LogDebug(cats.ToList().Count.ToString());
             return View(cats.OrderByDescending(x=>x.Note));
         }
 

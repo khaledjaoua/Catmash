@@ -32,8 +32,7 @@ namespace CatMash
             
             services.AddDbContext<CatMashDbContext>(options =>
                 options.UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CatMash"))
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+                        Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CatMash")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<CatMashDbContext>();
             services.AddScoped<ICatmashService, CatMashService>();

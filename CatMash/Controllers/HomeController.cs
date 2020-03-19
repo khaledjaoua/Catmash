@@ -34,9 +34,9 @@ namespace CatMash.Controllers
             ViewBag.secondCat = secondCat;
             return View();
         }
-        public RedirectToActionResult Vote(int id)
+        public async Task<RedirectToActionResult> Vote(int id)
         {
-            var cat = _catmashService.GetById(id);
+            var cat = await _catmashService.GetByIdAsync(id);
             cat.Note += 1;
             _catmashService.Update(cat);
             return RedirectToAction("Index", "Cats");

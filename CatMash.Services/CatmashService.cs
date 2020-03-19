@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CatMash.Services
@@ -17,6 +18,10 @@ namespace CatMash.Services
         public CatMashService(CatMashDbContext context)
         {
             _context = context;
+            if (!context.Cats.Any())
+            {
+                SeedCats();
+            }
         }
 
         public void SeedCats()
@@ -28,12 +33,41 @@ namespace CatMash.Services
                 AddRange(items);
             }
         }
+        public IEnumerable<Cats> GetByQuery(
+        Expression<Func<Cats, bool>> filter = null,
+        Func<IQueryable<Cats>, IOrderedQueryable<Cats>> orderBy = null,
+        string includeProperties = "")
+        {
+            IQueryable<Cats> query = _context.Cats;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
+        }
 
         public async Task<Cats> GetByIdAsync(int id)
         {
-            return await _context.Set<Cats>()
-                        .AsNoTracking()
-                        .FirstOrDefaultAsync(e => e.CatMashId == id);
+            return await _context.Set<Cats>().FirstOrDefaultAsync(e => e.CatMashId == id);
         }
         public Cats GetRandomCat()
         {
@@ -41,9 +75,13 @@ namespace CatMash.Services
             var cats = _context.Cats.ToList();
             return cats.ElementAt(rand.Next(cats.Count));
         }
-        public IList<Cats> GetAll()
+        public IEnumerable<Cats> GetAll()
         {
             return _context.Set<Cats>().AsNoTracking().ToList();
+        }
+        public async Task<IEnumerable<Cats>> GetAllAsync()
+        {
+            return await _context.Set<Cats>().AsNoTracking().ToListAsync();
         }
         public Cats GetById(object id)
         {
@@ -79,7 +117,8 @@ namespace CatMash.Services
 
     public interface ICatmashService
     {
-        public IList<Cats> GetAll();
+        public IEnumerable<Cats> GetAll();
+        public Task<IEnumerable<Cats>> GetAllAsync();
         public Task<Cats> GetByIdAsync(int id);
         public void Delete(object id);
         public void Save();
@@ -89,5 +128,6 @@ namespace CatMash.Services
         public Cats GetById(object id);
         public Cats GetRandomCat();
         public void SeedCats();
+        public IEnumerable<Cats> GetByQuery(Expression<Func<Cats, bool>> filter = null,Func<IQueryable<Cats>, IOrderedQueryable<Cats>> orderBy = null,string includeProperties = "");
     }
 }

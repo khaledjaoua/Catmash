@@ -28,7 +28,7 @@ namespace CatMash.Migrations
 
                     b.Property<string>("Id")
                         .HasColumnName("id")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Note")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace CatMash.Migrations
 
                     b.Property<string>("Url")
                         .HasColumnName("url")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("CatMashId");
 

@@ -18,9 +18,10 @@ namespace CatMash.Repository
         {
             modelBuilder.Entity<Cats>().ToTable("cats");
             modelBuilder.Entity<Cats>().HasKey(x => x.CatMashId);
-            modelBuilder.Entity<Cats>().Property(b => b.Note).HasColumnName("note").HasDefaultValueSql("((0))");
-            modelBuilder.Entity<Cats>().Property(b => b.Id).HasColumnName("id");
-            modelBuilder.Entity<Cats>().Property(b => b.Url).HasColumnName("url");
+            modelBuilder.Entity<Cats>().Property(b => b.CatMashId).HasColumnType("int");
+            modelBuilder.Entity<Cats>().Property(b => b.Note).HasColumnName("note").HasColumnType("int").HasDefaultValueSql("((0))");
+            modelBuilder.Entity<Cats>().Property(b => b.Id).HasColumnName("id").HasColumnType("nvarchar(50)");
+            modelBuilder.Entity<Cats>().Property(b => b.Url).HasColumnName("url").HasColumnType("text");
             base.OnModelCreating(modelBuilder);
         }
     }
